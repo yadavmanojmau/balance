@@ -136,7 +136,7 @@ void setup()
      pinMode(SortingArm2,OUTPUT);
      pinMode(Conveyor,OUTPUT);
     
-attachInterrupt(digitalPinToInterrupt(Limit2), pause, CHANGE);
+//attachInterrupt(digitalPinToInterrupt(Limit2), pause, CHANGE);
 }
 
 void pause()
@@ -232,9 +232,9 @@ void InitRAM(void)
     gPTPCommonParams.accelerationRatio = 50;
 
     gPTPCmd.ptpMode = MOVL_XYZ;
-    gPTPCmd.x = 169;
-    gPTPCmd.y = -169;
-    gPTPCmd.z = 0;
+    gPTPCmd.x = 113;
+    gPTPCmd.y = 181;
+    gPTPCmd.z = 50;
     gPTPCmd.r = 1;
 
     gQueuedCmdIndex = 0;
@@ -512,7 +512,7 @@ void loop()
     bin=7;
   }
 
-    //InitRAM();
+     //InitRAM();
 
     ProtocolInit();
     
@@ -541,7 +541,7 @@ void loop()
         delay(3000);
         moveDobot(265,-65,-65,1);
         delay(3000);
-        moveDobot(166,-85,-65,1);
+        moveDobot(113,181,100,1);
         delay(3000);
 //
 //
@@ -694,6 +694,17 @@ void loop()
               bin=7;
 
            }
+            if(bin==8)
+          {
+              DobotHome();
+              delay(1000);
+              dobotbin1();
+              bin=7;
+          }
+//          digitalWrite(Compresor,LOW);
+//       moveDobot(x,y,z,g);
+//       delay(1000);
+          
            
       
 //           
@@ -703,7 +714,7 @@ void loop()
               delay(1000);
               dobotbin1();
               bin=7;
-                Serial.println("yadav5");
+                Serial.println("yadav24");
                 
                 
           }
@@ -714,31 +725,31 @@ void loop()
     
 
             Serial.println("in bin 5");
+              
             moveDobot(x,y,z,g);
-             DobotHome();
+             delay(3000);
+             //DobotHome();
              Serial.println("yadav5");
-  
-     
-  
-  
-            //  bin=23;
-              //digitalWrite(Compresor,LOW);
-//                moveDobot(222,6,0,1);
-//       delay(3000);
-      // moveDobot(265,-32,17,1);
+        
        delay(3000);
-       moveDobot(100,247,17,0);
-       delay(3000);
+        
       // moveDobot(178,-196,-42,0);
      //  delay(3000);
-      // moveDobot(169,-160,78,0);
-       //delay(3000);
-       moveDobot(168,-168,78,0);
+       moveDobot(20,212,40,1);
        delay(3000);
+        moveDobot(20,212,-20,1);
+        delay(3000);
+       //moveDobot(167,-138,30,);
+        //delay(3000);
+        delay(3000);
+        moveDobot(120,181,27,0);
+        delay(3000);
+        
        digitalWrite(Compresor,HIGH);
-       bin=7;
+        bin=7;
        Serial.println("yadav8");
        
+             
         
        if(color==1)
        {
@@ -764,8 +775,9 @@ void loop()
 //                digitalWrite(CSA1_SP,LOW);
 //                delayMicroseconds(300);
 //            }
-            digitalWrite(SortingArm1,HIGH);
-            Serial.println("yadav9");
+//            digitalWrite(SortingArm1,HIGH);
+//            Serial.println("yadav9");
+                bin=7;
         }
       
        else if(color==2)
@@ -792,15 +804,16 @@ void loop()
 //                digitalWrite(CSA2_SP,LOW);
 //                delayMicroseconds(300);
 //            }
-            digitalWrite(SortingArm2,HIGH);
-            Serial.println("yadav10");
+//            digitalWrite(SortingArm2,HIGH);
+//            Serial.println("yadav10");
+                     bin=7;       
        }
-              
-
-
+    
   
       }
+      //delay(1000);
  }
+  
     }
     }
 }
