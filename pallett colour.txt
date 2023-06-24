@@ -1,0 +1,82 @@
+Servo On
+Wait M_Svo=1
+Ovrd 10
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+K1*
+Mvs p1,-100     'pallet position p11
+Mov p1 
+Dly 0.5
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mvs p1,-100
+Mov pint
+Mov pplace,-100
+Mvs pplace
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 1
+Mov pplace,-100
+Mov P2   ' for colour scanning
+Dly 25
+If M_DIn32(6006) = 2 Then 'If value of register is 1 color of object is RED.
+Mvs pplace,-100
+Mov pplace
+dly 1
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mvs pplace,-100
+Mov pint2 
+Mov pplacered,-100
+Mov pplacered
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 1
+Mov pplacered,-100
+Mov pint3
+ElseIf M_DIn32(6006) = 1 Then 'If value of register is 2 color of object is yellow.
+Mvs pplace,-100
+Mov pplace
+dly 1
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mvs pplace,-100
+Mov pint2 
+Mov pplaceyellow,-100
+Mov pplaceyellow
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 1
+Mov pplaceyellow,-100
+Mov pint3
+ElseIf M_DIn32(6006) = 3 Then 'If value of register is 2 color of object is green
+Mvs pplace,-100
+Mov pplace
+dly 1
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mvs pplace,-100
+Mov pint2 
+Mov pplacegreen,-100
+Mov pplacegreen
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 1
+Mov pplacegreen,-100
+Mov pint3
+EndIf
+Dly 1
+GoTo *K1 
