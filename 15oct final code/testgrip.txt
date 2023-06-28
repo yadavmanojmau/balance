@@ -1,0 +1,24 @@
+Servo On
+Ovrd 10
+M_DOut32(6001) = 0    'Gripper release connand ON
+Dly 1
+M_DOut32(6001) = 10  'Gripper Jaw CLOSE
+Dly 1
+Hlt
+M_DOut32(6001) = 0    'Gripper release connand ON
+Dly 0.1
+M_DOut32(6001) = 1  'Gripper Jaw OPEN
+Dly 0.1
+Ovrd 10
+Hlt
+'M_DOut(6000) = 0    'Gripper release connand ON
+'Dly 1
+'M_DOut(6000) = 10  'Gripper release connand OFF
+'Dly 2
+'Hlt
+'M_DOut(6000) = 0    'Gripper release connand ON
+'Dly 1
+'M_DOut(6000) = 1  'Gripper release connand OFF
+'Dly 1
+'Hlt
+End

@@ -1,0 +1,70 @@
+Servo On
+Wait M_Svo=1
+Ovrd 10
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov Pint1      'not over conveyour  gripper is in verticle position so obj easily drop on conv
+Mov p11,-100      'pallet position p11
+Mvs p11
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov p11,-100      'pallet position p11
+Mov Pint1      'not over conveyour
+Mov p2,-100
+Mvs p2
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov p2,-100
+'Mov pint2       'for gripper mov normal position so that camera easily capture obj
+'*L1  '**************************************************L1 loop starts **********************************************************************************
+'M_DOut32(6003) = 0
+'Mov pint2    'camera over the conveyour position
+'M_DOut32(6003) = 1 'send ready cmnd to plc ack bit 1 to plc for start D103
+'Dly 1
+'If M_DIn32(6013) = 4 Then 'This is Ack bit from plc if coordinates not findout yet by vision system.
+'GoTo *L1 'Then go to Loop L1.
+'EndIf   'Else end the If Loop.
+*K1               'K1 loop starts
+Ovrd 10
+If M_DIn32(6006) = 2 Then 'If value of register is 1 color of object is red
+Mov P3   'for red obj pick
+Mvs P3,-100
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov pint2    'camera over the conveyour position
+Dly 1
+Mov Pint3      'intermediate pos
+Mvs P4           'for place green obj
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov Pint3
+ElseIf M_DIn32(6006) = 1 Then 'If value of register is 2 color of object is yellow.
+Mov P3   'for yellow obj pick
+Mvs P3,-100
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov pint2    'camera over the conveyour position
+Dly 1
+Mov Pint3
+Mvs P5           'for place yellow obj
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov Pint3
+Mov pint2      'for gripper mov normal position so that camera easily capture obj
+EndIf
+Dly 1
+GoTo *K1 '****************************************

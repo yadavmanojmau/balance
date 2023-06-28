@@ -1,0 +1,72 @@
+Servo On
+Wait M_Svo=1
+Ovrd 10
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov Pint1      'not over conveyour  gripper is in verticle position so obj easily drop on conv
+Mov p11,-100      'pallet position p11
+Mvs p11
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov p11,-100      'pallet position p11
+Mov Pint1      'not over conveyour
+Mov p2,-100     'to place obj on conv near sensor
+Mvs p2          'to place obj on conv near sensor
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov p2,-100
+Dly 1
+Mov p3          'over the conveyour to see objor any intermediate postion
+Dly 10
+Mov p3dn,-100
+Mov p3dn        'pick that obj when sensor stop that obj
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov p3dn,-100
+Mov pint2          'for place obj intermediate pos
+Mov p4              'obj place position
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+' for 2nd object pick place
+Mov Pint1      'not over conveyour  gripper is in verticle position so obj easily drop on conv
+Mov p11,-100      'pallet position p11
+Mvs p11
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov p11,-100      'pallet position p11
+Mov Pint1      'not over conveyour
+Mov p2,-100
+Mvs p2
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5
+Mov p2,-100
+Dly 1
+Mov p3          'over the conveyour
+Dly 10
+Mov p3dn,-100
+Mov p3dn
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov p3dn,-100
+Mov pint2          'for place obj intermediate pos
+Mov p5             'for 2nd obj place position
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 0.5

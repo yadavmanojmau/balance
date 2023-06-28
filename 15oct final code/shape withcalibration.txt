@@ -1,0 +1,42 @@
+Servo On
+Wait M_Svo=1
+Ovrd 10
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+*L1
+M_DOut32(6003) = 0
+Mov Pick_Pre
+M_DOut32(6003) = 1
+Dly 1
+If M_DIn32(6013) = 4 Then
+GoTo *L1
+EndIf
+MX = (M_DIn32(6000))
+MY = (M_DIn32(6002))
+P1.X = MX
+P1.Y = MY
+'Mvs Pvia
+'Mvs P1,40
+P1.Z = 189
+Ovrd 10
+Mvs P1
+M_DOut32(6003) = 0
+M_DOut(6001)=0
+Dly 0.5
+M_DOut(6001) = 1    'Gripper release connand ON
+Dly 1
+Mvs P1,-40
+*K1
+Ovrd 10
+If M_DIn32(6006) = 1 Then
+Mvs Pvia
+Mvs Pcircle
+ElseIf M_DIn32(6006) = 2 Then
+Mvs Pvia
+Mvs Psquare
+EndIf
+M_DOut(6001) = 0    'Gripper release connand ON
+Dly 0.5
+M_DOut(6001) = 10    'Gripper release connand OFF
+GoTo *L1

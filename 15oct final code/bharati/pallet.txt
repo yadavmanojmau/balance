@@ -1,0 +1,37 @@
+Servo On
+Def Plt 1,P11,P12,P13,P14,3,3,1
+Def Plt 2,P55,P66,P77,P88,3,3,1
+'******************************
+Mov PINT
+M_DOut(6001)= 0
+Dly 0.5
+M_DOut(6001)= 10
+Dly 1
+M1=1
+*LOOP
+PICK=Plt 1,M1
+Mov PICK,-100
+Ovrd 50
+Mvs PICK
+Dly 0.5
+M_DOut(6001)= 0
+Dly 0.5
+M_DOut(6001)= 1
+Dly 1
+Ovrd 50
+Mvs,-100
+PLACE=Plt 2,M1
+Mov PLACE,-120
+Ovrd 50
+Mvs PLACE
+Dly 0.5
+M_DOut(6001)= 0
+Dly 0.5
+M_DOut(6001)= 10
+Dly 1
+Ovrd 100
+Mvs,-120
+M1=M1+1
+If M1<=9 Then *LOOP
+Mov PICK,-120
+End

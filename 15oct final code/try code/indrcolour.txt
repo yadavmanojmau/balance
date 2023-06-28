@@ -1,0 +1,71 @@
+Servo On
+Wait M_Svo=1
+Ovrd 10
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 1
+Mov pick1
+Mov pick1dn
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mov pick1
+Mov p11up   'con1
+Mov p12    'conveyour
+M_DOut(6001) = 0     'Gripper command off
+Dly 1
+M_DOut(6001) = 10    'Gripper Jaw Open
+Dly 1
+Mov p11up    'con1
+*L1  '**************************************************L1 loop starts **********************************************************************************
+M_DOut32(6003) = 0
+Mov Phomecam   'homecam
+M_DOut32(6003) = 1 'send ready cmnd to plc ack bit 1 to plc for start D103
+Dly 1
+If M_DIn32(6013) = 4 Then 'This is Ack bit from plc if coordinates not findout yet by vision system.
+GoTo *L1 'Then go to Loop L1.
+EndIf   'Else end the If Loop.
+'MX = (M_DIn(6000)) 'X Co-ordinates from PLC
+'MY = (M_DIn(6002)) 'Y Co-ordinates from PLC
+'p1.X = MX    'Move X Co-ordinates from MX to P1.X
+'p1.Y = MY    'Move Y Co-ordinates from MX to P1.Y
+'Mvs Pvia
+Mov P1,-50
+Mvs P1       'Move to point P1
+'p1.Z = 189 'Move to point P1 with Z=33.25
+Ovrd 10
+Mvs P1       'Move to point P1
+M_DOut32(6003) = 0  'Ack bit from plc
+M_DOut(6001)= 0     'Gripper off
+Dly 0.5
+M_DOut(6001)= 1   'Gripper Jaw Close
+Dly 1
+Mvs P1,-100
+*K1               'K1 loop starts
+Ovrd 10
+If M_DIn32(6006) = 2 Then 'If value of register is 1 color of object is RED.
+Mvs Pvia     'any up position intermediate position
+Mvs Pred
+M_DOut(6001)= 0  'Gripper command off
+Dly 0.5
+M_DOut(6001)= 10 'Gripper Jaw Open
+Dly 1
+Mvs Pred,-40
+ElseIf M_DIn32(6006) = 1 Then 'If value of register is 2 color of object is GREEN.
+Mvs Pvia
+Mvs Pgreen
+M_DOut(6001)= 0  'Gripper command off
+Dly 0.5
+M_DOut(6001)= 10 'Gripper Jaw Open
+Dly 1
+Mvs Pgreen,-40
+EndIf
+Dly 1
+GoTo *L1 '**************************************************Go to loop L1 again*****************************************************
+'
+'******************Points teached by Us to Robot************************************************************************************
+'Mov Pick_Pre = Home Position (cam position where all coordinates see)
+'Mvs Pvia  = Intermediate Position (any up position)
+'Mvs Preen = Green color destination position after sorting
